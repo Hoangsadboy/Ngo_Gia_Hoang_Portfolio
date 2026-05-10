@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tên Bạn — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">YN.DEV</div>  <!-- Thay bằng tên viết tắt của bạn -->
+    <ul class="nav-links">
+      <li><a href="#about">Giới thiệu</a></li>
+      <li><a href="#skills">Kỹ năng</a></li>
+      <li><a href="#projects">Dự án</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="hero-sub fade-in">Sinh viên Khoa học Máy tính · Đại học ABC</p>
+      <h1 class="hero-title fade-in delay-1">
+        Nguyễn <em>Văn A.</em>
+      </h1>
+      <p class="hero-desc fade-in delay-2">
+        Đam mê biến dữ liệu thành giá trị và ý tưởng thành sản phẩm. Chuyên về
+        <strong>Python, phân tích dữ liệu và lập trình web</strong> — ứng dụng toán học
+        để giải quyết bài toán thực tế. GPA 3.7 · Đại học ABC.
+      </p>
+      <div class="hero-btns fade-in delay-3">
+        <a href="#projects" class="btn btn-primary">Xem dự án →</a>
+        <a href="#contact" class="btn btn-outline">Liên hệ mình</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>CUỘN XUỐNG ĐỂ KHÁM PHÁ</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about section" id="about">
+    <div class="container">
+      <p class="section-label">Giới thiệu</p>
+      <h2 class="section-title">Một người xây dựng<br /><em>nghĩ bằng dữ liệu.</em></h2>
+
+      <div class="about-grid">
+        <div class="about-photo">
+          <img src="images/avatar/photo.jpg" alt="Ảnh của bạn" />
+          <!-- Nếu chưa có ảnh, xóa thẻ img và để placeholder -->
+        </div>
+        <div class="about-text">
+          <p>
+            Mình là sinh viên ngành Khoa học Máy tính tại Đại học ABC (GPA 3.7/4.0),
+            tò mò với phân tích dữ liệu, machine learning và thiết kế hệ thống.
+          </p>
+          <p>
+            Ngoài giờ học, mình tham gia câu lạc bộ lập trình và làm trợ giảng
+            môn Cấu trúc Dữ liệu. Mình tin rằng code đẹp nhất là code giải được
+            vấn đề thật của người dùng.
+          </p>
+          <p>
+            Hiện đang tìm kiếm cơ hội thực tập trong lĩnh vực phần mềm hoặc dữ liệu.
+          </p>
+
+          <!-- === Stats === -->
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-num">3.7</span>
+              <span class="stat-label">GPA / 4.0</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">4</span>
+              <span class="stat-label">Dự án</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">CS</span>
+              <span class="stat-label">Chuyên ngành</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">∞</span>
+              <span class="stat-label">Tò mò</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section class="skills section" id="skills">
+    <div class="container">
+      <p class="section-label">Công cụ</p>
+      <h2 class="section-title">Những gì mình<br /><em>làm việc cùng.</em></h2>
+
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-num">01</div>
+          <h3>Python & Dữ liệu</h3>
+          <div class="skill-tags">
+            <span>Python</span><span>Pandas</span><span>NumPy</span>
+            <span>Matplotlib</span><span>EDA</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-num">02</div>
+          <h3>Machine Learning</h3>
+          <div class="skill-tags">
+            <span>Scikit-learn</span><span>Decision Trees</span>
+            <span>Phân loại</span><span>Hồi quy</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-num">03</div>
+          <h3>Web Development</h3>
+          <div class="skill-tags">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            <span>React (đang học)</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-num">04</div>
+          <h3>Toán học</h3>
+          <div class="skill-tags">
+            <span>Đại số tuyến tính</span><span>Xác suất</span>
+            <span>Giải tích</span><span>Thống kê</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-num">05</div>
+          <h3>Công cụ & Hệ thống</h3>
+          <div class="skill-tags">
+            <span>Git</span><span>Linux</span><span>C/C++</span>
+            <span>SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-num">06</div>
+          <h3>Kỹ năng mềm</h3>
+          <div class="skill-tags">
+            <span>Thuyết trình</span><span>Viết báo cáo</span>
+            <span>Làm việc nhóm</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section class="projects section" id="projects">
+    <div class="container">
+      <p class="section-label">Công trình</p>
+      <h2 class="section-title">Các dự án<br /><em>nổi bật.</em></h2>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-img">
+            <img src="images/projects/p1.png" alt="Dự án 1" onerror="this.style.display='none'" />
+            <div class="project-placeholder">📊</div>
+          </div>
+          <div class="project-meta">
+            <span class="project-course">Nhập môn Thống kê</span>
+            <h3>Phân tích Lương Kỹ sư Phần mềm</h3>
+            <p>Phân tích thống kê 5,000 bản ghi lương tại Việt Nam — kiểm định giả thuyết, khoảng tin cậy và gợi ý hướng nghiệp.</p>
+            <div class="project-tags">
+              <span>Python</span><span>Pandas</span><span>Thống kê</span>
+            </div>
+            <a href="#" class="project-link">Xem dự án →</a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-img">
+            <img src="images/projects/p2.png" alt="Dự án 2" onerror="this.style.display='none'" />
+            <div class="project-placeholder">🤖</div>
+          </div>
+          <div class="project-meta">
+            <span class="project-course">Machine Learning</span>
+            <h3>Hệ thống Gợi ý Phim</h3>
+            <p>Xây dựng hệ thống gợi ý phim dùng collaborative filtering và cosine similarity trên ma trận đánh giá người dùng.</p>
+            <div class="project-tags">
+              <span>Collaborative Filtering</span><span>Scikit-learn</span><span>Python</span>
+            </div>
+            <a href="#" class="project-link">Xem dự án →</a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-img">
+            <img src="images/projects/p3.png" alt="Dự án 3" onerror="this.style.display='none'" />
+            <div class="project-placeholder">🌐</div>
+          </div>
+          <div class="project-meta">
+            <span class="project-course">Lập trình Web</span>
+            <h3>Ứng dụng Quản lý Công việc</h3>
+            <p>Web app full-stack để quản lý task cá nhân với tính năng phân loại, deadline và thống kê tiến độ.</p>
+            <div class="project-tags">
+              <span>HTML/CSS/JS</span><span>LocalStorage</span><span>Responsive</span>
+            </div>
+            <a href="#" class="project-link">Xem dự án →</a>
+          </div>
+        </article>
+
+        <!-- Project 4 — thêm dự án bằng cách copy block này -->
+        <article class="project-card">
+          <div class="project-img">
+            <img src="images/projects/p4.png" alt="Dự án 4" onerror="this.style.display='none'" />
+            <div class="project-placeholder">📚</div>
+          </div>
+          <div class="project-meta">
+            <span class="project-course">Cấu trúc Dữ liệu</span>
+            <h3>Trình Tìm Đường Ngắn Nhất</h3>
+            <p>Trực quan hóa thuật toán Dijkstra và A* trên đồ thị có trọng số. Người dùng vẽ đồ thị và so sánh hai thuật toán.</p>
+            <div class="project-tags">
+              <span>JavaScript</span><span>Canvas API</span><span>Dijkstra</span>
+            </div>
+            <a href="#" class="project-link">Xem dự án →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <p class="section-label">Liên hệ</p>
+      <h2 class="section-title">Hãy cùng làm<br /><em>điều gì đó.</em></h2>
+      <p class="contact-sub">Mình đang mở cho cơ hội thực tập, cộng tác và kết nối.</p>
+
+      <div class="contact-links">
+        <a href="mailto:email@example.com" class="contact-item">
+          ✉ email@example.com
+        </a>
+        <a href="https://linkedin.com/in/username" target="_blank" class="contact-item">
+          ↗ LinkedIn
+        </a>
+        <a href="https://github.com/username" target="_blank" class="contact-item">
+          ↗ GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2026 Nguyễn Văn A — Portfolio</p>
+    <p class="footer-built">BUILT WITH HTML · CSS · JS</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
