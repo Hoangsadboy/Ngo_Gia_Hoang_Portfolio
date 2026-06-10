@@ -1,272 +1,1167 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tên Bạn — Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ngô Gia Hoàng — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      /* ── Milky Pink Palette  */ 
+      --cream:     #fac1ee;        /* background chính */
+      --blush:     #f3e1f7;        /* surface nhẹ */
+      --rose:      #E8C4BC;        /* border / divider */
+      --pink-soft: #faefef;        /* hover surface */
+      --pink-mid:  #db429c;        /* accent chính – hồng đất */
+      --pink-deep: #222121;        /* accent đậm – hover */
+      --ink:       #0a0807;        /* text đen ấm */
+      --ink-soft:  #000000;        /* heading */
+      --ink-mid:   #000000;        /* muted text */
+      --ink-light: #020202;        /* disabled / light */
+      --shadow:    rgb(180, 124, 185);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Jost', sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+      overflow-x:hidden;
+    }
+    /* animation added */
+    .subtitle {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.7rem;
+        font-weight: 600;
+        color: #ff66c4;
+
+        text-shadow:
+            0 0 5px rgba(255,102,196,0.6),
+            0 0 15px rgba(255,102,196,0.3);
+
+        letter-spacing: 0.5px;
+    }
+
+    .cursor {
+        color: #ff66c4;
+        animation: blink 0.5s infinite;
+    }
+
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+    /* ── Grain overlay ── */
+    body::after {
+      content:'';
+      position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      opacity:.6;
+    }
+
+    /* ══════════════════ NAV ══════════════════ */ 
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.25rem 4rem;
+      background:rgba(253,246,240,.88);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--rose);
+    }
+    .nav-logo {
+      font-family:'DM Mono', monospace;
+      font-size:.82rem; font-weight:500;
+      letter-spacing:.15em; color:var(--ink-soft);
+      cursor:pointer; transition:color .2s;
+    }
+    .nav-logo:hover { color:var(--pink-mid); }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a {
+      font-size:.75rem; font-weight:500;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--ink-mid); cursor:pointer; transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--pink-deep); }
+
+    /* ══════════════════ PAGE SYSTEM ══════════════════ */
+    .page { display:none; }
+    .page.active { display:block; }
+
+    /* ══════════════════ HERO ══════════════════ */
+    #hero {
+      min-height:100vh; display:flex; align-items:center;
+      padding:8rem 4rem 4rem; position:relative; overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute; inset:0; z-index:0;
+      background:
+        radial-gradient(ellipse 55% 60% at 85% 40%, rgba(212,144,127,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 15% 80%, rgba(232,196,188,.25) 0%, transparent 60%),
+        linear-gradient(160deg, var(--cream) 0%, var(--blush) 100%);
+    }
+    /* subtle dot grid */
+    .hero-grid {
+      position:absolute; inset:0; z-index:0;
+      background-image:radial-gradient(circle, var(--rose) 1px, transparent 1px);
+      background-size:36px 36px;
+      opacity:.45;
+    }
+    .hero-content{
+    position:relative;
+    z-index:1;
+    max-width:680px;
+    }
+
+    .hero-container{
+        position:relative;
+        z-index:1;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        width:100%;
+        gap:4rem;
+    }
+
+    .hero-animation{
+        flex:1;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .hero-animation img{
+        max-width:550px;
+        width:100%;
+        height:auto;
+
+        transition: all 0.4s ease;
+
+        filter: brightness(0.9);
+    }
+
+    .hero-animation img:hover{
+        transform: scale(1.05);
+        filter: brightness(1.15) drop-shadow(0 25px 50px rgba(219,66,156,.35));
+    }
+
+    @media(max-width:900px){
+        .hero-container{
+            flex-direction:column;
+            text-align:left;
+        }
+
+        .hero-animation img{
+            max-width:400px;
+        }
+    }
+    .hero-eyebrow {
+      font-family:'DM Mono', monospace;
+      font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--pink-mid); margin-bottom:1.5rem;
+      opacity:0; animation:fadeUp .6s ease .1s forwards;
+    }
+    .hero-name{
+        font-family:'Cormorant Garamond', serif;
+        font-size:clamp(3.8rem, 7.5vw, 6.5rem);
+        font-weight:300;
+        line-height:1;
+        color:var(--ink-soft);
+        margin-bottom:1.5rem;
+
+        transition: all 0.35s ease;
+        cursor: default;
+    }
+    .hero-name:hover{
+        transform: scale(1.03);
+        letter-spacing: 1px;
+        text-shadow:
+            0 0 10px rgba(255,102,196,0.5),
+            0 0 25px rgba(255,102,196,0.3);
+    }
+    .hero-name em { font-style:italic; color:var(--pink-mid); font-weight:400; }
+    .hero-sub {
+      font-size:1rem; font-weight:300; line-height:1.8;
+      color:var(--ink-mid); max-width:500px; margin-bottom:2.5rem;
+      opacity:0; animation:fadeUp .6s ease .4s forwards;
+    }
+    .hero-sub strong { color:var(--ink-soft); font-weight:500; }
+    .hero-cta {
+      display:flex; gap:1rem; flex-wrap:wrap;
+      opacity:0; animation:fadeUp .6s ease .55s forwards;
+    }
+    .btn-primary {
+      display:inline-flex; align-items:center;
+      padding:.75rem 1.75rem;
+      background:var(--ink-soft); color:var(--cream);
+      font-family:'Jost', sans-serif;
+      font-size:.76rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+      border:2px solid var(--ink-soft); cursor:pointer; transition:all .25s;
+    }
+    .btn-primary:hover { background:var(--pink-mid); border-color:var(--pink-mid); }
+    .btn-outline {
+      display:inline-flex; align-items:center;
+      padding:.75rem 1.75rem;
+      background:transparent; color:var(--ink-soft);
+      font-family:'Jost', sans-serif;
+      font-size:.76rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+      border:2px solid var(--rose); cursor:pointer; transition:all .25s;
+    }
+    .btn-outline:hover { border-color:var(--pink-mid); color:var(--pink-mid); background:var(--pink-soft); }
+    .hero-scroll {
+      position:absolute; bottom:2.5rem; left:4rem;
+      display:flex; align-items:center; gap:.75rem;
+      font-family:'DM Mono', monospace; font-size:.68rem;
+      letter-spacing:.15em; color:var(--ink-light);
+      opacity:0; animation:fadeUp .6s ease .9s forwards;
+    }
+    .scroll-line { width:40px; height:1px; background:var(--rose); position:relative; overflow:hidden; }
+    .scroll-line::after {
+      content:''; position:absolute; top:0; left:-100%;
+      width:100%; height:100%; background:var(--pink-mid);
+      animation:slideRight 1.8s ease 1.5s infinite;
+    }
+
+    /* ══════════════════ SHARED ══════════════════ */
+    section { padding:6rem 4rem; }
+    .section-label {
+      font-family:'DM Mono', monospace;
+      font-size:.68rem; letter-spacing:.28em; text-transform:uppercase;
+      color:var(--pink-mid); margin-bottom:.75rem;
+    }
+    .section-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2rem, 4vw, 3.2rem);
+      font-weight:300; line-height:1.1;
+      color:var(--ink-soft); margin-bottom:3rem;
+    }
+    .section-title em { font-style:italic; color:var(--pink-mid); }
+
+    /* ══════════════════ ABOUT ══════════════════ */
+    #about {
+      background:var(--ink);
+      position:relative; overflow:hidden;
+    }
+    #about::before {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse 50% 70% at 90% 20%, rgba(212,144,127,.12) 0%, transparent 60%);
+    }
+    #about .section-label { color:rgba(247,232,225,.3); }
+    #about .section-title { color:var(--blush); }
+    #about .section-title em { color:var(--pink-mid); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; position:relative; z-index:1; }
+    .about-left { display:flex; flex-direction:column; gap:1.5rem; }
+    .avatar-wrap{
+        width:260px;
+        height:260px;
+
+        border-radius:50%; /* 🔥 quan trọng */
+
+        border:2px solid rgba(212,144,127,.3);
+        overflow:hidden;
+        background:#2a1f1c;
+
+        flex-shrink:0;
+
+        position: relative; /* để dùng hiệu ứng shine */
+        transition: all 0.4s ease;
+    }
+    .avatar-wrap::before{
+        content:'';
+        position:absolute;
+        top:0;
+        left:-75%;
+
+        width:50%;
+        height:100%;
+
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.6),
+            transparent
+        );
+
+        transform: skewX(-25deg);
+    }
+    .avatar-wrap:hover{
+        transform: scale(1.08);
+        border-color: var(--pink-mid);
+        box-shadow: 0 20px 40px rgba(219,66,156,.25);
+    }
+
+    .avatar-wrap:hover::before{
+        animation: shine 0.8s ease forwards;
+    }
+    @keyframes shine{
+        0%{
+            left:-75%;
+        }
+        100%{
+            left:125%;
+        }
+    }
+    .avatar-wrap img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        transition: transform 0.4s ease;
+    }
+
+    .avatar-wrap:hover img{
+        transform: scale(1.1);
+    }
+    .avatar-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:.5rem;
+      color:rgba(247,232,225,.3);
+    }
+    .avatar-placeholder svg { width:40px; height:40px; opacity:.4; }
+    .avatar-placeholder span { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; opacity:.5; }
+    .about-text { font-size:.97rem; line-height:1.85; color:rgba(247,232,225,.55); font-weight:300; }
+    .about-text p+p { margin-top:1.2rem; }
+    .hl { color:var(--blush); font-weight:400; }
+    .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+    .stat {
+      border-left:2px solid rgba(212,144,127,.25);
+      padding-left:1.25rem;
+    }
+    .stat-n {
+      font-family:'Cormorant Garamond', serif;
+      font-size:2.8rem; font-weight:300;
+      color:var(--blush); line-height:1; margin-bottom:.25rem;
+    }
+    .stat-l { font-size:.72rem; color:rgba(247,232,225,.3); letter-spacing:.1em; text-transform:uppercase; }
+
+    /* ══════════════════ SKILLS ══════════════════ */
+    #skills { background:var(--blush); }
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .skill-card {
+      background:var(--cream);
+      border:1px solid var(--rose);
+      padding:2rem; transition:border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .skill-card:hover {
+      border-color:var(--pink-mid);
+      transform:translateY(-4px);
+      box-shadow:0 12px 32px var(--shadow);
+    }
+    .skill-card.featured { border-top:3px solid var(--pink-mid); }
+    .sk-num {
+      font-family:'DM Mono', monospace;
+      font-size:.63rem; letter-spacing:.18em;
+      color:var(--pink-mid); margin-bottom:1rem;
+    }
+    .sk-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.3rem; font-weight:400;
+      color:var(--ink-soft); margin-bottom:1rem;
+    }
+    .tags { display:flex; flex-wrap:wrap; gap:.45rem; }
+    .tag {
+      font-size:.68rem; font-weight:500;
+      padding:.28rem .65rem;
+      background:var(--pink-soft); color:var(--pink-deep);
+      letter-spacing:.04em;
+    }
+
+    /* ══════════════════ PROJECTS ══════════════════ */
+    #projects { background:var(--cream); }
+    .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .project-card {
+      background:white;
+      border:1px solid var(--rose);
+      cursor:pointer; transition:all .25s;
+      overflow:hidden; display:flex; flex-direction:column;
+    }
+    .project-card:hover {
+      border-color:var(--pink-mid);
+      transform:translateY(-5px);
+      box-shadow:0 16px 40px var(--shadow);
+    }
+    .project-thumb {
+      width:100%; aspect-ratio:16/9; overflow:hidden;
+      background:linear-gradient(135deg, var(--blush) 0%, var(--pink-soft) 100%);
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .project-thumb img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .45s;
+    }
+    .project-card:hover .project-thumb img { transform:scale(1.05); }
+    .thumb-placeholder {
+      display:none; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:.75rem; width:100%; height:100%;
+    }
+    .thumb-icon { font-size:2.5rem; opacity:.5; }
+    .thumb-label {
+      font-family:'DM Mono', monospace;
+      font-size:.58rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--pink-mid); opacity:.7;
+    }
+    .upload-zone { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; }
+    .upload-zone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .project-body {
+      padding:1.5rem; flex:1;
+      display:flex; flex-direction:column; gap:.5rem;
+      border-top:1px solid var(--blush);
+    }
+    .p-course { font-size:.66rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-light); }
+    .p-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.15rem; font-weight:400;
+      color:var(--ink-soft); line-height:1.25;
+    }
+    .p-desc { font-size:.82rem; color:var(--ink-mid); line-height:1.65; flex:1; font-weight:300; }
+    .p-tags { display:flex; gap:.35rem; flex-wrap:wrap; margin-top:.75rem; }
+    .p-tag {
+      font-size:.6rem; font-weight:600;
+      padding:.2rem .55rem;
+      background:var(--pink-soft); color:var(--pink-deep);
+      letter-spacing:.06em; text-transform:uppercase;
+    }
+    .p-cta {
+      margin-top:1rem; padding:.65rem 1rem;
+      background:var(--ink-soft); color:var(--cream);
+      font-family:'Jost', sans-serif;
+      font-size:.72rem; font-weight:500; letter-spacing:.1em;
+      text-transform:uppercase; text-align:center;
+      border:none; cursor:pointer; transition:background .2s; width:100%;
+    }
+    .p-cta:hover { background:var(--pink-mid); }
+
+    /* ══════════════════ CONTACT ══════════════════ */
+    #contact {
+      background:var(--ink); text-align:center;
+      position:relative; overflow:hidden;
+    }
+    #contact::before {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse 60% 60% at 50% 100%, rgba(212,144,127,.1) 0%, transparent 65%);
+    }
+    #contact .section-label { color:rgba(247,232,225,.25); }
+    .c-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2.5rem,5vw,4.2rem);
+      font-weight:300; color:var(--blush); line-height:1.1;
+      margin-bottom:1.5rem; position:relative; z-index:1;
+    }
+    .c-title em { font-style:italic; color:var(--pink-mid); }
+    .c-sub { font-size:.92rem; color:rgba(247,232,225,.38); margin-bottom:3rem; font-weight:300; position:relative; z-index:1; }
+    .c-links { display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap; position:relative; z-index:1; }
+    .c-link {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.85rem 2rem;
+      border:1px solid rgba(212,144,127,.25);
+      color:rgba(247,232,225,.55);
+      text-decoration:none; font-size:.78rem; font-weight:400;
+      letter-spacing:.1em; text-transform:uppercase;
+      transition:all .25s;
+    }
+    .c-link:hover { border-color:var(--pink-mid); color:var(--pink-soft); background:rgba(212,144,127,.08); }
+
+    /* ══════════════════ FOOTER ══════════════════ */
+    footer {
+      background:#0F0A08;
+      padding:2rem 4rem;
+      display:flex; justify-content:space-between; align-items:center;
+      border-top:1px solid rgba(212,144,127,.1);
+    }
+    footer p {
+      font-family:'DM Mono', monospace;
+      font-size:.68rem; color:rgba(247,232,225,.18); letter-spacing:.1em;
+    }
+
+    /* ══════════════════ DETAIL PAGE ══════════════════ */
+    #page-project { background:var(--cream); min-height:100vh; }
+    .detail-hero {
+      background:var(--ink);
+      padding:10rem 4rem 5rem; position:relative; overflow:hidden;
+    }
+    .detail-hero-bg {
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse 55% 80% at 100% 0%, rgba(212,144,127,.2) 0%, transparent 60%);
+    }
+    .detail-back {
+      position:absolute; top:6rem; left:4rem;
+      font-family:'DM Mono', monospace;
+      font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(247,232,225,.35); cursor:pointer; transition:color .2s;
+      display:flex; align-items:center; gap:.5rem;
+      border:none; background:none;
+    }
+    .detail-back:hover { color:var(--pink-soft); }
+    .detail-course {
+      font-family:'DM Mono', monospace;
+      font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+      color:rgba(247,232,225,.3); margin-bottom:1rem; position:relative; z-index:1;
+    }
+    .detail-title {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2.5rem,5vw,4.5rem);
+      font-weight:300; color:var(--blush);
+      line-height:1.05; margin-bottom:1.5rem; position:relative; z-index:1;
+    }
+    .detail-tags-hero { display:flex; gap:.5rem; flex-wrap:wrap; position:relative; z-index:1; }
+    .detail-tag-hero {
+      font-size:.66rem; font-weight:500;
+      padding:.3rem .75rem;
+      background:rgba(212,144,127,.12); color:rgba(247,232,225,.6);
+      letter-spacing:.07em; text-transform:uppercase;
+      border:1px solid rgba(212,144,127,.2);
+    }
+    .detail-thumb-wrap { max-width:900px; margin:0 auto; padding:0 4rem; transform:translateY(-2.5rem); }
+    .detail-thumb {
+      width:100%; aspect-ratio:16/9; overflow:hidden;
+      border:1px solid var(--rose);
+      background:linear-gradient(135deg, var(--blush) 0%, var(--pink-soft) 100%);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .detail-thumb img { width:100%; height:100%; object-fit:cover; display:none; }
+    .detail-thumb-ph { display:flex; flex-direction:column; align-items:center; gap:1rem; }
+    .detail-thumb-ph .icon { font-size:4rem; opacity:.3; }
+    .detail-thumb-ph p {
+      font-family:'DM Mono', monospace;
+      font-size:.68rem; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--pink-mid); opacity:.7;
+    }
+    .detail-body { max-width:780px; margin:0 auto; padding:0 4rem 6rem; }
+    .detail-section-head {
+      font-family:'DM Mono', monospace;
+      font-size:.68rem; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--pink-mid); margin-bottom:1rem; margin-top:3rem;
+    }
+    .detail-p { font-size:.97rem; line-height:1.9; color:var(--ink-mid); font-weight:300; }
+    .detail-highlights { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:1.5rem; }
+    .dh-item { border:1px solid var(--rose); padding:1.25rem; background:var(--blush); }
+    .dh-label {
+      font-family:'DM Mono', monospace;
+      font-size:.6rem; letter-spacing:.15em;
+      text-transform:uppercase; color:var(--ink-light); margin-bottom:.4rem;
+    }
+    .dh-value { font-size:.88rem; font-weight:500; color:var(--ink-soft); }
+
+    /* PDF / VIZ EMBED */
+    .detail-docs { max-width:900px; margin:0 auto; padding:0 4rem 2rem; }
+    .detail-doc-block { margin-top:2rem; }
+    .detail-doc-label {
+      font-family:'DM Mono', monospace;
+      font-size:.68rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--pink-mid); margin-bottom:.75rem;
+    }
+    .detail-pdf-frame { width:100%; height:680px; border:1px solid var(--rose); background:#faf5f3; }
+    .detail-viz-frame { width:100%; height:600px; border:1px solid var(--rose); background:#fff; }
+
+    /* ══════════════════ ANIMATIONS ══════════════════ */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes slideRight { from{left:-100%} to{left:100%} }
+    .reveal { opacity:1; transform:translateY(0); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ══════════════════ RESPONSIVE ══════════════════ */
+    @media(max-width:1000px){ .projects-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:900px){
+      nav{ padding:1rem 1.5rem; }
+      section{ padding:4rem 1.5rem; }
+      #hero{ padding:7rem 1.5rem 3rem; }
+      .about-grid{ grid-template-columns:1fr; gap:3rem; }
+      .skills-grid{ grid-template-columns:1fr 1fr; }
+      footer{ flex-direction:column; gap:1rem; text-align:center; }
+      .detail-hero{ padding:8rem 1.5rem 4rem; }
+      .detail-back{ left:1.5rem; }
+      .detail-thumb-wrap{ padding:0 1.5rem; }
+      .detail-body{ padding:0 1.5rem 4rem; }
+      .detail-highlights{ grid-template-columns:1fr 1fr; }
+      .detail-docs{ padding:0 1.5rem 2rem; }
+      .detail-pdf-frame{ height:480px; }
+      .detail-viz-frame{ height:420px; }
+    }
+    @media(max-width:600px){
+      .skills-grid{ grid-template-columns:1fr; }
+      .hero-name{ font-size:3rem; }
+      .nav-links{ display:none; }
+      .projects-grid{ grid-template-columns:1fr; }
+      .detail-highlights{ grid-template-columns:1fr; }
+    }
+    /* Ẩn con trỏ mặc định */
+    body{
+        cursor: none;
+    }
+
+    /* vòng tròn ngoài */
+    .cursor{
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        border: 2px solid #ff66c4;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease, opacity 0.2s;
+        z-index: 99999;
+    }
+
+    /* chấm ở giữa */
+    .cursor-dot{
+        position: fixed;
+        width: 6px;
+        height: 6px;
+        background: #ff66c4;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+    }
+
+    /* canvas trail */
+    #cursor-trail{
+        position: fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        pointer-events:none;
+        z-index:9999;
+    }
+  </style>
 </head>
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+<canvas id="cursor-trail"></canvas>
+
+
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-logo">YN.DEV</div>  <!-- Thay bằng tên viết tắt của bạn -->
-    <ul class="nav-links">
-      <li><a href="#about">Giới thiệu</a></li>
-      <li><a href="#skills">Kỹ năng</a></li>
-      <li><a href="#projects">Dự án</a></li>
-      <li><a href="#contact">Liên hệ</a></li>
-    </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
-  </nav>
+<!-- NAV -->
+<nav>
+  <span class="nav-logo" id="nav-logo">NGH.DEV</span>
+  <ul class="nav-links">
+    <li><a id="nav-about">About</a></li>
+    <li><a id="nav-skills">Skills</a></li>
+    <li><a id="nav-projects">Projects</a></li>
+    <li><a id="nav-achievements">Achievements</a></li>
+    <li><a id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <p class="hero-sub fade-in">Sinh viên Khoa học Máy tính · Đại học ABC</p>
-      <h1 class="hero-title fade-in delay-1">
-        Ngô <em>Gia Hoàng</em>
-      </h1>
-      <p class="hero-desc fade-in delay-2">
-        Đam mê biến dữ liệu thành giá trị và ý tưởng thành sản phẩm. Chuyên về
-        <strong>Python, phân tích dữ liệu và lập trình web</strong> — ứng dụng toán học
-        để giải quyết bài toán thực tế. GPA 3.7 · Đại học ABC.
-      </p>
-      <div class="hero-btns fade-in delay-3">
-        <a href="#projects" class="btn btn-primary">Xem dự án →</a>
-        <a href="#contact" class="btn btn-outline">Liên hệ mình</a>
+<!-- ══════════════════ MAIN PAGE ══════════════════ -->
+<div id="page-main" class="page active">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-container">
+
+      <div class="hero-content">
+        <p class="hero-eyebrow">HUNG VUONG - HOAI DUC HIGH SCHOOL STUDENT</p>
+
+        <h1 class="hero-name">
+          Ngô Gia<br><em>Hoàng</em>
+        </h1>
+
+        <p class="hero-sub">
+          Being interested in how theoretical understanding can be transformed into practical solutions that improve everyday life, I specialize in
+          <strong>Mathematics, Physics</strong> as tools for solving real-world problems.
+          <br>GPA 9.5 · Hùng Vương - Hoài Đức High School
+        </p>
+
+        <div class="hero-cta">
+          <span class="btn-primary" id="btn-view-projects">
+            VIEW PROJECTS →
+          </span>
+
+          <span class="btn-outline" id="btn-contact">
+            CONTACT DETAILS
+          </span>
+        </div>
       </div>
+
+      <div class="hero-animation">
+        <img src="https://ekizr.com/Animation1.gif"
+            alt="Developer Animation">
+      </div>
+
     </div>
+
     <div class="hero-scroll">
-      <span>CUỘN XUỐNG ĐỂ KHÁM PHÁ</span>
       <div class="scroll-line"></div>
+      SCROLL TO EXPLORE
     </div>
   </section>
 
-  <!-- ===== ABOUT ===== -->
-  <section class="about section" id="about">
-    <div class="container">
-      <p class="section-label">Giới thiệu</p>
-      <h2 class="section-title">Một người xây dựng<br /><em>nghĩ bằng dữ liệu.</em></h2>
-
-      <div class="about-grid">
-        <div class="about-photo">
-          <img src="images/avatar/photo.jpg" alt="Ảnh của bạn" />
-          <!-- Nếu chưa có ảnh, xóa thẻ img và để placeholder -->
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label reveal">About</p>
+    <!--<h2 class="section-title reveal">A developer<br/><em>driven by curiosity.</em></h2>*/-->
+    <h2 class="subtitle">
+        <span id="typing"></span>
+        <span class="cursor">|</span>
+    </h2>
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <div class="avatar-wrap" id="avatarWrap">
+          <div class="avatar-placeholder" id="avatarPlaceholder" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>Your Photo</span>
+          </div>
+          <img id="avatarImg" src="images\avatar\ed060c651474952acc65.jpg" alt="Ngô Gia Hoàng" style="display:block;"
+               onerror="this.style.display='none';document.getElementById('avatarPlaceholder').style.display='flex';"/>
         </div>
         <div class="about-text">
+          <p>I'm an <span class="hl">11th-grade</span> student at Hung Vuong – Hoai Duc High School (GPA: 9.5/10.0), passionate about  <span class="hl">Mathematics, Physics and System Design</span>.</p>
           <p>
-            Mình là sinh viên ngành Khoa học Máy tính tại Đại học ABC (GPA 3.7/4.0),
-            tò mò với phân tích dữ liệu, machine learning và thiết kế hệ thống.
+            Besides learning, I also get involved in the <span class="hl">English Club</span> to create an interactive and practical 
+            environment, and in <span class="hl">programming and engineering projects</span> with the aim of solving real-world problems and improving 
+            people's lives.
           </p>
-          <p>
-            Ngoài giờ học, mình tham gia câu lạc bộ lập trình và làm trợ giảng
-            môn Cấu trúc Dữ liệu. Mình tin rằng code đẹp nhất là code giải được
-            vấn đề thật của người dùng.
-          </p>
-          <p>
-            Hiện đang tìm kiếm cơ hội thực tập trong lĩnh vực phần mềm hoặc dữ liệu.
-          </p>
-
-          <!-- === Stats === -->
-          <div class="about-stats">
-            <div class="stat">
-              <span class="stat-num">3.7</span>
-              <span class="stat-label">GPA / 4.0</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">4</span>
-              <span class="stat-label">Dự án</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">CS</span>
-              <span class="stat-label">Chuyên ngành</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">∞</span>
-              <span class="stat-label">Tò mò</span>
-            </div>
-          </div>
         </div>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat"><div class="stat-n">9.5</div><div class="stat-l">GPA / 10.0</div></div>
+        <div class="stat"><div class="stat-n">2</div><div class="stat-l">Projects</div></div>
+        <div class="stat"><div class="stat-n">...</div><div class="stat-l">IELTS</div></div>
+        <div class="stat"><div class="stat-n">...</div><div class="stat-l">SAT</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== SKILLS ===== -->
-  <section class="skills section" id="skills">
-    <div class="container">
-      <p class="section-label">Công cụ</p>
-      <h2 class="section-title">Những gì mình<br /><em>làm việc cùng.</em></h2>
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label reveal">Toolkit</p>
+    <h2 class="section-title reveal">Skills & Technologies</h2>
+    <div class="skills-grid">
+      <div class="skill-card featured reveal"><p class="sk-num">01</p><h3 class="sk-title">Mathematics</h3><div class="tags"><span class="tag">Arithmetic</span><span class="tag">Algebra</span><span class="tag">Geometry</span><span class="tag">Combinatorics</span><span class="tag">Probability</span></div></div>
+      <div class="skill-card featured reveal"><p class="sk-num">02</p><h3 class="sk-title">PHYSICS</h3><div class="tags"><span class="tag">...</span><span class="tag">...</span><span class="tag">...</span><span class="tag">...</span><span class="tag">...</span></div></div>
+      <div class="skill-card featured reveal"><p class="sk-num">03</p><h3 class="sk-title">SYSTEM DESIGN</h3><div class="tags"><span class="tag">...</span><span class="tag">...</span><span class="tag">...</span><span class="tag">...</span><span class="tag">...</span></div></div>
+   </div>
+  </section>
 
-      <div class="skills-grid">
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label reveal">Work</p>
+    <h2 class="section-title reveal">Selected Projects</h2>
+    <div class="projects-grid">
 
-        <div class="skill-card">
-          <div class="skill-num">01</div>
-          <h3>Python & Dữ liệu</h3>
-          <div class="skill-tags">
-            <span>Python</span><span>Pandas</span><span>NumPy</span>
-            <span>Matplotlib</span><span>EDA</span>
-          </div>
+      <div class="project-card reveal" data-project="0">
+        <div class="project-thumb">
+          <img id="thumb-0" src="images/projects/p0.png" alt=""
+               onerror="if(this.src.indexOf('.jpg')>-1){this.src='images/projects/p0.png';}else{this.style.display='none';document.getElementById('tph-0').style.display='flex';}"/>
+          <div class="thumb-placeholder" id="tph-0"><span class="thumb-icon">📊</span><span class="thumb-label">Add image</span></div>
         </div>
-
-        <div class="skill-card">
-          <div class="skill-num">02</div>
-          <h3>Machine Learning</h3>
-          <div class="skill-tags">
-            <span>Scikit-learn</span><span>Decision Trees</span>
-            <span>Phân loại</span><span>Hồi quy</span>
-          </div>
+        <div class="project-body">
+          <p class="p-course">Data Engineering & Visualization</p>
+          <h3 class="p-title">Interactive Data Analysis Platform</h3>
+          <p class="p-desc">Designed to democratize data science for non-technical users. 
+            Built an intuitive, no-setup dashboard platform that empowers individuals to generate charts 
+            and geographic visualizations on-demand, eliminating the steep learning curve of traditional data analysis tools.</p>
+          <div class="p-tags"><span class="p-tag">PYTHON</span><span class="p-tag">DATA VISUALIZATION</span><span class="p-tag">INTERACTIVE DASHBOARDS</span></div>
+          <button class="p-cta">View Project →</button>
         </div>
-
-        <div class="skill-card">
-          <div class="skill-num">03</div>
-          <h3>Web Development</h3>
-          <div class="skill-tags">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span>
-            <span>React (đang học)</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-num">04</div>
-          <h3>Toán học</h3>
-          <div class="skill-tags">
-            <span>Đại số tuyến tính</span><span>Xác suất</span>
-            <span>Giải tích</span><span>Thống kê</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-num">05</div>
-          <h3>Công cụ & Hệ thống</h3>
-          <div class="skill-tags">
-            <span>Git</span><span>Linux</span><span>C/C++</span>
-            <span>SQL</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-num">06</div>
-          <h3>Kỹ năng mềm</h3>
-          <div class="skill-tags">
-            <span>Thuyết trình</span><span>Viết báo cáo</span>
-            <span>Làm việc nhóm</span>
-          </div>
-        </div>
-
       </div>
+
+      <div class="project-card reveal" data-project="1">
+        <div class="project-thumb">
+          <img id="thumb-1" src="images/projects/p1.png" alt=""
+               onerror="if(this.src.indexOf('.jpg')>-1){this.src='images/projects/p1.png';}else{this.style.display='none';document.getElementById('tph-1').style.display='flex';}"/>
+          <div class="thumb-placeholder" id="tph-1"><span class="thumb-icon">📚</span><span class="thumb-label">Add image</span></div>
+        </div>
+        <div class="project-body">
+          <p class="p-course">Sustainability & Engineering</p>
+          <h3 class="p-title">Hydraulic Propulsion Vehicle</h3>
+          <p class="p-desc">Architected and constructed a water-pressure-powered vehicle from upcycled materials. 
+            Engineered the chassis from recycled plastics and the drivetrain from repurposed components, conducting iterative experiments to optimize internal pressure mechanics. 
+            Achieved a performance milestone of 30 meters at ~60 PSI, demonstrating a practical application of fluid dynamics and mechanical systems design.</p>
+          <div class="p-tags"><span class="p-tag">SYSTEMS ARCHITECTURE</span><span class="p-tag">FLUID DYNAMICS</span><span class="p-tag">TEAM LEADERSHIP</span><span class="p-tag">RAPID PROTOTYPING</span></div>
+          <button class="p-cta">View Project →</button>
+        </div>
+      </div>
+
+  </section>
+  <!-- ACHIEVEMENTS -->   
+  <section id="achievements">
+    <h2 class="section-title reveal">Awards & Achievements</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal" data-project="2">
+        <div class="project-thumb">
+          <img id="thumb-0" src="images/projects/p0.png" alt=""
+               onerror="if(this.src.indexOf('.jpg')>-1){this.src='images/projects/p0.png';}else{this.style.display='none';document.getElementById('tph-0').style.display='flex';}"/>
+          <div class="thumb-placeholder" id="tph-0"><span class="thumb-icon">📊</span><span class="thumb-label">Add image</span></div>
+        </div>
+        <div class="project-body">
+          <p class="p-course">The Second Prize in Math for excellent students at the provincial level in 2024 and 2026.</p>
+          <p class="p-desc">These awards represents the culmination of hours of assiduous study and serves as tangible evidence of my dedication to Mathematics. 
+            Driven by a blend of intellectual curiosity and creative problem-solving, I am committed to learning more advanced mathematical tools with the aim of solving real-world problems and improving people's lives.</p>
+          <button class="p-cta">Explore more →</button>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-project="3">
+        <div class="project-thumb">
+          <img id="thumb-1" src="images/projects/p1.png" alt=""
+               onerror="if(this.src.indexOf('.jpg')>-1){this.src='images/projects/p1.png';}else{this.style.display='none';document.getElementById('tph-1').style.display='flex';}"/>
+          <div class="thumb-placeholder" id="tph-1"><span class="thumb-icon">📚</span><span class="thumb-label">Add image</span></div>
+        </div>
+        <div class="project-body">
+          <p class="p-course">Third Prize (Individual & Team) at the 2024 Provincial English Public Speaking Competition </br> the Third Prize in English for excellent students at the provincial level in 2025. </p>
+          <p class="p-desc">These awards represent an important part of my learning process, through which I have developed leadership, teamwork, critical thinking, and problem-solving skills.</p>
+          <button class="p-cta">Explore more →</button>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-project="4">
+        <div class="project-thumb">
+          <img id="thumb-0" src="images/projects/p0.png" alt=""
+               onerror="if(this.src.indexOf('.jpg')>-1){this.src='images/projects/p0.png';}else{this.style.display='none';document.getElementById('tph-0').style.display='flex';}"/>
+          <div class="thumb-placeholder" id="tph-0"><span class="thumb-icon">📊</span><span class="thumb-label">Add image</span></div>
+        </div>
+        <div class="project-body">
+          <p class="p-course">First Prize at the School-Level and Fourth Prize at the Provincial-Level Science and Engineering Competition (2026)</p>
+          <p class="p-desc">These awards reflect my dedication to Science and Engineering. I have always been passionate about developing technologies that can improve people's lives. 
+            My interest in this field is driven not only by my love for science but also by my curiosity about my own potential and the impact I can make through innovation.</p>
+          <button class="p-cta">Explore more →</button>
+        </div>
+      </div>
+
+  </section>
+  <!-- CONTACT --> 
+  <section id="contact">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="c-title reveal">Let's build something<br/><em>together.</em></h2>
+    <p class="c-sub reveal">Open to internships, competitions, and collaborations.</p>
+    <div class="c-links reveal">
+      <a href="https://mail.google.com/" target="_blank" class="c-link">✉ 1374ngogiahoang@gmail.com</a>
+      <a href="linkedin.com/in/gia-hoàng-ngô-b41a1a387" target="_blank" class="c-link">↗ LinkedIn</a>
+      <a href="https://github.com/Hoangsadboy" target="_blank" class="c-link">↗ GitHub</a>
     </div>
   </section>
 
-  <!-- ===== PROJECTS ===== -->
-  <section class="projects section" id="projects">
-    <div class="container">
-      <p class="section-label">Công trình</p>
-      <h2 class="section-title">Các dự án<br /><em>nổi bật.</em></h2>
-
-      <div class="projects-grid">
-
-        <!-- Project 1 -->
-        <article class="project-card">
-          <div class="project-img">
-            <img src="images/projects/p1.png" alt="Dự án 1" onerror="this.style.display='none'" />
-            <div class="project-placeholder">📊</div>
-          </div>
-          <div class="project-meta">
-            <span class="project-course">Nhập môn Thống kê</span>
-            <h3>Phân tích Lương Kỹ sư Phần mềm</h3>
-            <p>Phân tích thống kê 5,000 bản ghi lương tại Việt Nam — kiểm định giả thuyết, khoảng tin cậy và gợi ý hướng nghiệp.</p>
-            <div class="project-tags">
-              <span>Python</span><span>Pandas</span><span>Thống kê</span>
-            </div>
-            <a href="#" class="project-link">Xem dự án →</a>
-          </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="project-card">
-          <div class="project-img">
-            <img src="images/projects/p2.png" alt="Dự án 2" onerror="this.style.display='none'" />
-            <div class="project-placeholder">🤖</div>
-          </div>
-          <div class="project-meta">
-            <span class="project-course">Machine Learning</span>
-            <h3>Hệ thống Gợi ý Phim</h3>
-            <p>Xây dựng hệ thống gợi ý phim dùng collaborative filtering và cosine similarity trên ma trận đánh giá người dùng.</p>
-            <div class="project-tags">
-              <span>Collaborative Filtering</span><span>Scikit-learn</span><span>Python</span>
-            </div>
-            <a href="#" class="project-link">Xem dự án →</a>
-          </div>
-        </article>
-
-        <!-- Project 3 -->
-        <article class="project-card">
-          <div class="project-img">
-            <img src="images/projects/p3.png" alt="Dự án 3" onerror="this.style.display='none'" />
-            <div class="project-placeholder">🌐</div>
-          </div>
-          <div class="project-meta">
-            <span class="project-course">Lập trình Web</span>
-            <h3>Ứng dụng Quản lý Công việc</h3>
-            <p>Web app full-stack để quản lý task cá nhân với tính năng phân loại, deadline và thống kê tiến độ.</p>
-            <div class="project-tags">
-              <span>HTML/CSS/JS</span><span>LocalStorage</span><span>Responsive</span>
-            </div>
-            <a href="#" class="project-link">Xem dự án →</a>
-          </div>
-        </article>
-
-        <!-- Project 4 — thêm dự án bằng cách copy block này -->
-        <article class="project-card">
-          <div class="project-img">
-            <img src="images/projects/p4.png" alt="Dự án 4" onerror="this.style.display='none'" />
-            <div class="project-placeholder">📚</div>
-          </div>
-          <div class="project-meta">
-            <span class="project-course">Cấu trúc Dữ liệu</span>
-            <h3>Trình Tìm Đường Ngắn Nhất</h3>
-            <p>Trực quan hóa thuật toán Dijkstra và A* trên đồ thị có trọng số. Người dùng vẽ đồ thị và so sánh hai thuật toán.</p>
-            <div class="project-tags">
-              <span>JavaScript</span><span>Canvas API</span><span>Dijkstra</span>
-            </div>
-            <a href="#" class="project-link">Xem dự án →</a>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section class="contact section" id="contact">
-    <div class="container">
-      <p class="section-label">Liên hệ</p>
-      <h2 class="section-title">Hãy cùng làm<br /><em>điều gì đó.</em></h2>
-      <p class="contact-sub">Mình đang mở cho cơ hội thực tập, cộng tác và kết nối.</p>
-
-      <div class="contact-links">
-        <a href="mailto:email@example.com" class="contact-item">
-          ✉ email@example.com
-        </a>
-        <a href="https://linkedin.com/in/username" target="_blank" class="contact-item">
-          ↗ LinkedIn
-        </a>
-        <a href="https://github.com/username" target="_blank" class="contact-item">
-          ↗ GitHub
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <p>© 2026 Nguyễn Văn A — Portfolio</p>
-    <p class="footer-built">BUILT WITH HTML · CSS · JS</p>
+  <footer>
+    <p>© 2026 Ngô Gia Hoàng — Portfolio</p>
+    <p>BUILT WITH HTML · CSS · JS</p>
   </footer>
 
-  <script src="script.js"></script>
+</div><!-- /page-main -->
+
+<!-- ══════════════════ DETAIL PAGE ══════════════════ -->
+<div id="page-project" class="page">
+  <div class="detail-hero">
+    <div class="detail-hero-bg"></div>
+    <button class="detail-back" id="btn-back">← Back</button>
+    <p class="detail-course" id="d-course"></p>
+    <h1 class="detail-title"  id="d-title"></h1>
+    <div class="detail-tags-hero" id="d-tags"></div>
+  </div>
+  <div class="detail-thumb-wrap">
+    <div class="detail-thumb">
+      <img id="d-thumb-img" src="" alt=""/>
+      <div class="detail-thumb-ph" id="d-thumb-ph">
+        <div class="icon" id="d-icon"></div>
+        <p>Upload a thumbnail on the project card</p>
+      </div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <p class="detail-section-head">Overview</p>
+    <p class="detail-p" id="d-overview"></p>
+    <p class="detail-section-head">HOW DID I ACHIEVE THIS?</p>
+    <p class="detail-p" id="d-what"></p>
+    <p class="detail-section-head">WHAT DID I GET FROM THIS?</p>
+    <div class="detail-highlights" id="d-highlights"></div>
+  </div>
+  <div class="detail-docs" id="d-docs"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var projects = [
+    { 
+      course:"Data Engineering & Visualization", title:"Interactive Data Analysis Platform", icon:"📊",
+      tags:["PYTHON","DATA VISUALIZATION","INTERACTIVE DASHBOARDS"],
+      overview:"Designed to democratize data science for non-technical users. Built an intuitive, no-setup dashboard platform that empowers individuals to generate charts and geographic visualizations on-demand, eliminating the steep learning curve of traditional data analysis tools.",
+      what:"I developed a modular, low-code data visualization platform to democratize analytical insights for non-technical users: (1) architected a streamlined, no-setup dashboard that automates the generation of complex charts from raw datasets; (2) added a dynamic data-subsetting engine that enables users to curate new datasets on-demand by filtering and extracting only relevant information through intuitive, natural operations; (3) implemented an AI-driven feedback layer that analyzes uploaded data to provide intelligent, natural language insights, effectively eliminating the need for manual data interpretation.",
+      highlights:[{label:"Methods",value:"Python, Plotly, dash, OpenAI API"},{label:"Feature",value:"Data Democratization, Intuitive Data Curation, AI-Enhanced Interpretation"}],
+      docs:[{type:"pdf",label:"Full Report",src:"files/stats-report.pdf"},{type:"iframe",label:"Interactive Data Visualization",src:"files/stats-visualization.html"}]
+    },
+    {
+      course:"Sustainability & Engineering", title:"Hydraulic Propulsion Vehicle<br/>System", icon:"📚",
+      tags:["SYSTEMS ARCHITECTURE","FLUID DYNAMICS","TEAM LEADERSHIP","RAPID PROTOTYPING"],
+      overview:"Architected and constructed a water-pressure-powered vehicle from upcycled materials. Engineered the chassis from recycled plastics and the drivetrain from repurposed components, conducting iterative experiments to optimize internal pressure mechanics. Achieved a performance milestone of 30 meters at ~60 PSI, demonstrating a practical application of fluid dynamics and mechanical systems design.",
+      what:"I led a cross-functional team of five to conceptualize and execute the project from initial design to final testing, engineered the vehicle's structural integrity using upcycled materials including recylced plastic chassis and reinforced cardboard/glue components, managed the iterative testing cycle.",
+      highlights:[{label:"Method",value:"Leadership visibility, designing, rapid prototyping"},{label:"Achievement",value:"milestone of ~30 meters of travel distance at 60 PSI"}],
+      docs:[{type:"pdf",label:"Project Poster",src:"files/book-recommendation.pdf"}]
+    },
+    { 
+      course:"", title:"The Second Prize in Math for excellent students at the provincial level in 2024 and 2026", icon:"📊",
+      tags:[],
+      overview:"From an early age, I developed a strong interest in mathematics and problem-solving. Fortunately, when I was in Grade 9, I met Mr. Dũng, who recognized my passion for the subject and decided to mentor me. Under his guidance, I devoted myself to studying through a wide range of materials and was awarded the Second Prize in the Provincial Excellent Student Competition for Mathematics in 2024. However, after a series of successes, I unexpectedly performed poorly on a school-level selection test at Hung Vuong–Hoai Duc High School, scoring only 6 out of 20 and experiencing my first significant setback in mathematics. Despite my disappointment, my family, teachers, and close friends encouraged me to persevere. Believing in my potential, my teachers gave me another opportunity to compete in the Provincial Excellent Student Competition. With renewed determination, I worked hard to overcome this setback and eventually earned the Second Prize once again in 2026. Through this experience, I came to realize that failure is not the opposite of success; rather, it is an essential part of the journey toward it. ",
+      what:"The study of countless documents during test preparation, always believing in myself and remembering that 'practice makes perfect!'",
+      highlights:[{label:"",value:"I had the opportunity to connect with many excellent seniors who share my passion for this subject and to learn from and collaborate with them. "},{label:"",value:"It is undeniable that our environment plays a significant role in shaping our success; therefore, I feel very fortunate to have participated in this contest and given it my best effort."},{label:"", value:"This experience also taught me an important lesson through my first failure in the subject I was most confident in. Through that setback, I understood that failure is not the opposite of success; it is a vital part of it."}],
+      docs:[{type:"pdf",label:"Full Report",src:"files/stats-report.pdf"},{type:"iframe",label:"Interactive Data Visualization",src:"files/stats-visualization.html"}]
+    },
+    {
+      course:"", title:"Third Prize (Individual & Team) at the 2024 Provincial English Public Speaking Competition & The Third Prize in English for excellent students at the provincial level in 2025. ", icon:"📊",
+      tags:[],
+      overview:"Although I was deeply dedicated to Mathematics, I gradually realized that English was also an essential part of my learning journey. In 2024, I stepped out of my comfort zone and took on the challenge of participating in the Provincial English Public Speaking Competition while also competing in the provincial Mathematics contest. This experience opened a new path for me and inspired me to focus more on English, eventually choosing it as my subject in the provincial excellent students competition the following year. My achievements today serve as tangible evidence that growth begins when we are willing to explore unfamiliar opportunities. Exploring pushes us beyond our comfort zones, turning the unknown into our greatest teacher.",
+      what:"I achieved this by daring to take risks, explore my potential, and trust in myself. Through this experience, I realized that exploration is also a powerful way of learning.",
+      highlights:[{label:"",value:"Learning English has greatly boosted my confidence in public speaking and strengthened my communication skills, which will be invaluable as I pursue my university education."},{label:"",value:"By participating in these competitions, I had the opportunity to compete alongside many talented contestants. This experience inspired me to further develop my critical thinking and problem-solving skills."},{label:"",value:"Working with four other team members in the English Public Speaking Competition provided me with valuable experience in collaboration and leadership. Through this experience, I was able to strengthen both my teamwork and leadership skills."}],
+      docs:[{type:"pdf",label:"Full Report",src:"files/stats-report.pdf"},{type:"iframe",label:"Interactive Data Visualization",src:"files/stats-visualization.html"}]
+    },
+    {
+      course:"", title:"First Prize at the School-Level and Fourth Prize at the Provincial-Level Science and Engineering Competition (2026)", icon:"📊",
+      tags:[],
+      overview:"In addition to learning how to solve theoretical mathematical problems at school, I have always been eager to explore programming and develop projects that address real-world challenges. I believe that the true purpose of technology is to improve people's lives and make everyday tasks more efficient and convenient. This belief has inspired me to learn how technology is created and how I can use it to make a meaningful impact on society.",
+      what:"I achieved these awards through iterative learning—constantly studying, applying new knowledge, and testing my ideas. Although I initially had limited knowledge of advanced Python libraries such as Plotly, Dash, and Pandas, I refused to give up. Instead, I taught myself through YouTube tutorials, online documentation, and various educational websites. The journey was challenging and required significant perseverance, but it ultimately enabled me to earn these awards and further strengthen my passion for Science and Engineering.",
+      highlights:[{label:"",value:"Through participating in these competitions, I became more aware of my weaknesses in coding and programming. Although I earned these awards, I do not consider myself accomplished enough. Instead, I see them as motivation to continue learning and improving. I understand that these competitions are not the end of my journey, but rather the beginning of a much longer path in Science, Engineering, and technology."},{label:"",value:"During the competitions, I had the opportunity to meet many talented students from different parts of the province. I feel fortunate to have crossed paths with them, as they not only demonstrated outstanding skills and knowledge but were also friendly, supportive, and approachable. These interactions left me with many valuable memories and inspired me to keep learning, growing, and striving for excellence. "}],
+      docs:[{type:"pdf",label:"Full Report",src:"files/stats-report.pdf"},{type:"iframe",label:"Interactive Data Visualization",src:"files/stats-visualization.html"}]
+    },
+  ];
+
+  var thumbSrcs = {};
+  var currentProject = 0;
+
+  function goTo(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior:'smooth' });
+  }
+
+  function showMain() {
+    document.getElementById('page-main').classList.add('active');
+    document.getElementById('page-project').classList.remove('active');
+    window.scrollTo(0,0);
+    setTimeout(initReveal, 80);
+  }
+
+  function openProject(idx) {
+    currentProject = idx;
+    var p = projects[idx];
+    document.getElementById('page-main').classList.remove('active');
+    document.getElementById('page-project').classList.add('active');
+    window.scrollTo(0,0);
+
+    document.getElementById('d-course').textContent   = p.course;
+    document.getElementById('d-title').innerHTML      = p.title;
+    document.getElementById('d-icon').textContent     = p.icon;
+    document.getElementById('d-overview').textContent = p.overview;
+    document.getElementById('d-what').textContent     = p.what;
+
+    document.getElementById('d-tags').innerHTML = p.tags.map(function(t){
+      return '<span class="detail-tag-hero">'+t+'</span>';
+    }).join('');
+
+    document.getElementById('d-highlights').innerHTML = p.highlights.map(function(h){
+      return '<div class="dh-item"><div class="dh-label">'+h.label+'</div><div class="dh-value">'+h.value+'</div></div>';
+    }).join('');
+
+    var img = document.getElementById('d-thumb-img');
+    var ph  = document.getElementById('d-thumb-ph');
+    if (thumbSrcs[idx]) {
+      img.src = thumbSrcs[idx]; img.style.display='block'; ph.style.display='none';
+    } else {
+      img.src=''; img.style.display='none'; ph.style.display='flex';
+    }
+
+    var docsEl = document.getElementById('d-docs');
+    if (p.docs && p.docs.length > 0) {
+      docsEl.innerHTML = p.docs.map(function(doc){
+        if (doc.type==='pdf') {
+          return '<div class="detail-doc-block"><p class="detail-doc-label">📄 '+doc.label+'</p>'
+                +'<iframe class="detail-pdf-frame" src="'+doc.src+'" title="'+doc.label+'"></iframe></div>';
+        } else if (doc.type==='iframe') {
+          return '<div class="detail-doc-block"><p class="detail-doc-label">📊 '+doc.label+'</p>'
+                +'<iframe class="detail-viz-frame" src="'+doc.src+'" title="'+doc.label+'"></iframe></div>';
+        }
+        return '';
+      }).join('');
+    } else { docsEl.innerHTML=''; }
+  }
+
+  // ── Nav
+  document.getElementById('nav-logo').addEventListener('click', showMain);
+  document.getElementById('nav-about').addEventListener('click',    function(){ showMain(); setTimeout(function(){ goTo('about');    },80); });
+  document.getElementById('nav-skills').addEventListener('click',   function(){ showMain(); setTimeout(function(){ goTo('skills');   },80); });
+  document.getElementById('nav-projects').addEventListener('click', function(){ showMain(); setTimeout(function(){ goTo('projects'); },80); });
+  document.getElementById('nav-achievements').addEventListener('click', function(){ showMain(); setTimeout(function(){ goTo('achievements'); },80); });  
+  document.getElementById('nav-contact').addEventListener('click',  function(){ showMain(); setTimeout(function(){ goTo('contact');  },80); });
+  document.getElementById('btn-view-projects').addEventListener('click', function(){ goTo('projects'); });
+  document.getElementById('btn-contact').addEventListener('click',       function(){ goTo('contact');  });
+  document.getElementById('btn-back').addEventListener('click', showMain);
+
+  // ── Project cards
+  document.querySelectorAll('.project-card').forEach(function(card){
+    card.addEventListener('click', function(e){
+      if (e.target.tagName==='INPUT') return;
+      openProject(parseInt(card.getAttribute('data-project')));
+    });
+  });
+
+  // ── Avatar upload
+  var avatarInput = document.getElementById('avatar-input');
+  if (avatarInput) {
+    avatarInput.addEventListener('change', function(e){
+      var file = e.target.files[0]; if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        var img = document.getElementById('avatarImg');
+        var ph  = document.getElementById('avatarPlaceholder');
+        img.src=ev.target.result; img.style.display='block'; ph.style.display='none';
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ── Thumb uploads
+  document.querySelectorAll('.thumb-input').forEach(function(input){
+    input.addEventListener('click', function(e){ e.stopPropagation(); });
+    input.addEventListener('change', function(e){
+      var idx  = parseInt(input.getAttribute('data-idx'));
+      var file = e.target.files[0]; if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev){
+        thumbSrcs[idx] = ev.target.result;
+        var img = document.getElementById('thumb-'+idx);
+        var ph  = document.getElementById('tph-'+idx);
+        img.src=ev.target.result; img.style.display='block'; ph.style.display='none';
+        if (document.getElementById('page-project').classList.contains('active') && currentProject===idx) {
+          document.getElementById('d-thumb-img').src=ev.target.result;
+          document.getElementById('d-thumb-img').style.display='block';
+          document.getElementById('d-thumb-ph').style.display='none';
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  // ── Scroll reveal
+  function initReveal(){
+    function check(){
+      document.querySelectorAll('.reveal:not(.visible)').forEach(function(el){
+        if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+      });
+    }
+    window.addEventListener('scroll', check);
+    check();
+  }
+
+  showMain();
+});
+
+
+const phrases = [
+    "A developer driven by curiosity",
+    "A mathematics enthusiast",
+    "A lifelong learner",
+    "A future researcher"
+];
+
+const typingElement = document.getElementById("typing");
+
+let phraseIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function type() {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (!deleting) {
+        typingElement.textContent =
+            currentPhrase.substring(0, charIndex + 1);
+
+        charIndex++;
+
+        if (charIndex === currentPhrase.length) {
+            deleting = true;
+            setTimeout(type, 1500);
+            return;
+        }
+    } else {
+        typingElement.textContent =
+            currentPhrase.substring(0, charIndex - 1);
+
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+    }
+
+    setTimeout(type, deleting ? 50 : 100);
+}
+type();
+
+// cursor
+const cursor = document.querySelector('.cursor');
+const dot = document.querySelector('.cursor-dot');
+const canvas = document.getElementById('cursor-trail');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let mouse = { x: 0, y: 0 };
+let trail = [];
+
+window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+
+    cursor.style.left = mouse.x + 'px';
+    cursor.style.top = mouse.y + 'px';
+
+    dot.style.left = mouse.x + 'px';
+    dot.style.top = mouse.y + 'px';
+
+    trail.push({ x: mouse.x, y: mouse.y, life: 0.5 });
+
+    if (trail.length > 20) trail.shift();
+});
+function drawTrail(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    for(let i = 0; i < trail.length; i++){
+        let p = trail[i];
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, i * 0.5, 0, Math.PI * 2);
+
+        ctx.fillStyle = `rgba(255,102,196, ${i / trail.length})`;
+        ctx.fill();
+        p.life -= 0.03; // giảm dần độ sáng
+    }
+    /* lọc điểm đã biến mất */
+    trail = trail.filter(p => p.life > 0);
+
+    requestAnimationFrame(drawTrail);
+}
+
+drawTrail();
+document.querySelectorAll('a, button, .btn-primary, .btn-outline').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>{
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+    });
+
+    el.addEventListener('mouseleave', ()=>{
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+});
+</script>
+
+<!-- Floating GIF bottom right -->
+<img src="https://i.giphy.com/WLohQRn2Iqp9WOBPT2.webp" 
+     alt="minion" 
+     style="position: fixed; bottom: 20px; right: 20px; width: 160px; height: auto; z-index: 9999; pointer-events: none; background: transparent;">
+
 </body>
 </html>
