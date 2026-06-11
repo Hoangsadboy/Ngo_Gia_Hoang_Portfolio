@@ -640,7 +640,77 @@
 
 
 <body>
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="splash-content">
+    <h1>Welcome to my portfolio</h1>
+    <p>connecting to Gia Hoàng...</p>
+    <!-- Nếu muốn dùng video thì bỏ comment đoạn dưới -->
+    <!-- <video src="intro.mp4" autoplay muted playsinline></video> -->
+  </div>
+</div>
 
+<style>
+  #splash {
+    position: fixed;
+    inset: 0;
+    background: #0f0f0f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s;
+  }
+  
+  #splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .splash-content {
+    text-align: center;
+    animation: fadeInUp 1s ease;
+  }
+  
+  .splash-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #6366f1, #ec4899);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .splash-content video {
+    max-width: 80vw;
+    max-height: 60vh;
+    border-radius: 12px;
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  // Tự ẩn sau 3.5 giây
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('splash').classList.add('hidden');
+    }, 2500);
+  });
+  
+  // Nếu dùng video thì đổi thành: ẩn khi video chạy xong
+  // const video = document.querySelector('#splash video');
+  // if(video) {
+  //   video.onended = () => {
+  //     document.getElementById('splash').classList.add('hidden');
+  //   };
+  // }
+</script>
 <!-- NAV -->
 <nav>
   <span class="nav-logo" id="nav-logo">NGH.DEV</span>
