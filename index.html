@@ -9,7 +9,7 @@
   <style>
     :root {
       /* ── Milky Pink Palette  */ 
-      --cream:     #fac1ee;        /* background chính */
+      --cream:     #fac1ee;        /* background chính linkedin */ 
       --blush:     #f3e1f7;        /* surface nhẹ */
       --rose:      #E8C4BC;        /* border / divider */
       --pink-soft: #faefef;        /* hover surface */
@@ -46,10 +46,10 @@
 
     .cursor {
         color: #ff66c4;
-        animation: blink 0.5s infinite;
+        animation: bedin 0.5s infinite;
     }
 
-    @keyframes blink {
+    @keyframes bedin {
         50% {
             opacity: 0;
         }
@@ -258,61 +258,88 @@
         width:260px;
         height:260px;
 
-        border-radius:50%; /* 🔥 quan trọng */
-
+        border-radius:50%;
         border:2px solid rgba(212,144,127,.3);
+
         overflow:hidden;
         background:#2a1f1c;
 
         flex-shrink:0;
+        position:relative;
 
-        position: relative; /* để dùng hiệu ứng shine */
-        transition: all 0.4s ease;
+        transition:all 0.4s ease;
     }
+
+
+    /* lớp ánh sáng chạy trên ảnh */
     .avatar-wrap::before{
         content:'';
         position:absolute;
-        top:0;
-        left:-75%;
 
-        width:50%;
-        height:100%;
+        top:-20%;
+        left:-80%;
 
-        background: linear-gradient(
+        width:60%;
+        height:140%;
+
+        background:linear-gradient(
             120deg,
             transparent,
-            rgba(255,255,255,0.6),
+            rgba(255,255,255,0.75),
             transparent
         );
 
-        transform: skewX(-25deg);
-    }
-    .avatar-wrap:hover{
-        transform: scale(1.08);
-        border-color: var(--pink-mid);
-        box-shadow: 0 20px 40px rgba(219,66,156,.25);
+        transform:skewX(-25deg);
+
+        z-index:3;          /* QUAN TRỌNG */
+        pointer-events:none; /* không chặn hover */
     }
 
-    .avatar-wrap:hover::before{
-        animation: shine 0.8s ease forwards;
-    }
-    @keyframes shine{
-        0%{
-            left:-75%;
-        }
-        100%{
-            left:125%;
-        }
-    }
+
+    /* ảnh nằm dưới shine */
     .avatar-wrap img{
         width:100%;
         height:100%;
+
         object-fit:cover;
-        transition: transform 0.4s ease;
+
+        position:relative;
+        z-index:1;
+
+        transition:transform 0.4s ease;
     }
 
+
+    /* hover */
+    .avatar-wrap:hover{
+        transform:scale(1.08);
+        border-color:var(--pink-mid);
+
+        box-shadow:
+          0 20px 40px rgba(219,66,156,.25);
+    }
+
+
+    .avatar-wrap:hover::before{
+        animation:shine 0.8s ease forwards;
+    }
+
+
     .avatar-wrap:hover img{
-        transform: scale(1.1);
+        transform:scale(1.1);
+    }
+
+
+    @keyframes shine{
+
+        0%{
+            left:-80%;
+        }
+
+        100%{
+            left:130%;
+        }
+
     }
     .avatar-placeholder {
       width:100%; height:100%;
@@ -912,7 +939,7 @@
     <p class="c-sub reveal">Open to internships, competitions, and collaborations.</p>
     <div class="c-links reveal">
       <a href="https://mail.google.com/" target="_blank" class="c-link">✉ 1374ngogiahoang@gmail.com</a>
-      <a href="https://www.linkedin.com/in/gia-ho%C3%A0ng-ng%C3%B4-b41a1a387/" target="_blank" class="c-link">↗ LinkedIn</a>
+      <a href="linkedin.com/in/gia-hoàng-ngô-b41a1a387" target="_blank" class="c-link">↗ LinkedIn</a>
       <a href="https://github.com/Hoangsadboy" target="_blank" class="c-link">↗ GitHub</a>
     </div>
   </section>
